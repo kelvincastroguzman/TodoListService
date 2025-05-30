@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using TodoList.Domain.Entities;
 using TodoList.Domain.IRepositories.TodoList.Commands;
 using TodoList.Infrastructure.Persistence;
 
 namespace TodoList.Infrastructure.Repositories.TodoList.Commands
 {
-    internal class TodoItemCommandsRepository : ITodoItemCommandsRepository
+    public class TodoItemCommandsRepository : ITodoItemCommandsRepository
     {
         private readonly DbSet<TodoItem> _todoItems;
 
@@ -22,7 +21,7 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Commands
 
         public void Update(TodoItem todoItem)
         {
-            var todoItemResponse = _todoItems.Find(todoItem.Id);
+            TodoItem? todoItemResponse = _todoItems.Find(todoItem.Id);
             if (todoItemResponse != null)
             {
                 todoItemResponse.Description = todoItem.Description;
@@ -32,7 +31,7 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Commands
 
         public void Remove(int id)
         {
-            var todoItem = _todoItems.Find(id);
+            TodoItem? todoItem = _todoItems.Find(id);
             if (todoItem != null)
             {
                 _todoItems.Remove(todoItem);

@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TodoList.Domain.Entities;
 using TodoList.Infrastructure.Persistence;
 using TodoList.Infrastructure.Repositories.TodoList.Queries;
 
-namespace TodoList.Infrastructure.Tests.Repositories.Queries
+namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Queries
 {
     public class TodoListQueriesRepositoryTests
     {
@@ -24,14 +25,14 @@ namespace TodoList.Infrastructure.Tests.Repositories.Queries
             var options = CreateInMemoryOptions();
             using (var dbContext = new TodoListDbContext(options))
             {
-                dbContext.TodoItems.Add(new Domain.Entities.TodoItem
+                dbContext.TodoItems.Add(new TodoItem
                 {
                     Id = 5,
                     Title = "Title1",
                     Description = "Description1",
                     Category = "Category1"
                 });
-                dbContext.TodoItems.Add(new Domain.Entities.TodoItem
+                dbContext.TodoItems.Add(new TodoItem
                 {
                     Id = 10,
                     Title = "Title2",
