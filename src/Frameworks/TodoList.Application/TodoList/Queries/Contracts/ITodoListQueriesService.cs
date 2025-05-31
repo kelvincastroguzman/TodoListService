@@ -4,6 +4,6 @@ namespace TodoList.Application.TodoList.Queries.Contracts
 {
     public interface ITodoListQueriesService
     {
-        Task<IReadOnlyCollection<string>> PrintItems();
+        IReadOnlyCollection<TodoItemDto> PrintItems();
     }
 }

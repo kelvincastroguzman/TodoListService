@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TodoList.Domain.Entities;
 using TodoList.Domain.IRepositories.TodoList.Queries;
@@ -18,9 +19,10 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Queries
 
         public async Task<IReadOnlyCollection<TodoItem>> GetAllAsync()
         {
-            return await _todoItems
-                    .AsNoTracking()
-                    .ToListAsync();
+            return await _todoItems.OrderBy(t => t.Id)
+                .Include(t => t.Progressions.OrderBy(p => p.Date))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Infrastructure.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Application.Tests", "src\Tests\Frameworks\TodoList.Application.Tests\TodoList.Application.Tests.csproj", "{89ADE451-163A-438C-BC94-D110483D3ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.WebApi", "src\Tests\Microservices\TodoList.WebApi\TodoList.WebApi.csproj", "{180EE81C-2DBE-410D-9DD7-CC634DD3F7E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.WebApi.Tests", "src\Tests\Microservices\TodoList.WebApi\TodoList.WebApi.Tests.csproj", "{180EE81C-2DBE-410D-9DD7-CC634DD3F7E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Gateway.WebApi", "src\Gateways\TodoList.Gateway.WebApi\TodoList.Gateway.WebApi.csproj", "{8E96269C-6AA2-4D62-9DF5-5EF99C368018}"
 EndProject

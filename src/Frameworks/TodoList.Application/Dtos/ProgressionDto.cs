@@ -2,8 +2,7 @@
 {
     public class ProgressionDto
     {
-        public DateTime Date { get; set; }
-
-        public int Percent { get; set; }
+        public DateTime Date { get; set; } = DateTime.UtcNow;
+        public int Percent { get; set; } = 0;
     }
 }

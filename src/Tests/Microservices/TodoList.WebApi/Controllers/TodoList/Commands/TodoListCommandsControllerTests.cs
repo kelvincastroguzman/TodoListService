@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoList.Application.Mappers
+namespace TodoList.WebApi.Controllers.TodoList.Commands
 {
-    internal class TodoItemProfile
+    public class TodoListCommandsControllerTests
     {
     }
 }

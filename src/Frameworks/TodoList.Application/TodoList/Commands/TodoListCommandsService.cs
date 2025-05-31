@@ -11,19 +11,21 @@ namespace TodoList.Application.TodoList.Commands
         private readonly ITodoItemCommandsRepository _todoItemCommandsRepository;
         private readonly IProgressionCommandsRepository _progressionCommandsRepository;
         private readonly ITodoListQueriesRepository _todoListQueriesRepository;
-        private readonly ITodoListValidator[] _todoListValidators;
+        //private readonly ITodoListValidator[] _todoListValidators;
 
         public TodoListCommandsService(ITodoItemCommandsRepository todoItemCommandsRepository, 
             IProgressionCommandsRepository progressionCommandsRepository,
-            ITodoListQueriesRepository todoListQueriesRepository, ITodoListValidator[] todoListValidators)
+            ITodoListQueriesRepository todoListQueriesRepository 
+            )
+        //ITodoListValidator[] todoListValidators
         {
             _todoItemCommandsRepository = todoItemCommandsRepository;
             _progressionCommandsRepository = progressionCommandsRepository;
             _todoListQueriesRepository = todoListQueriesRepository;
-            _todoListValidators = todoListValidators;
+            //_todoListValidators = todoListValidators;
         }
 
-        public void AddItem(int id, string title, string description, string category)
+        void ITodoListCommandsService.AddItem(int id, string title, string description, string category)
         {
             id = _todoListQueriesRepository.GetNextIdAsync().Result;
 
@@ -35,15 +37,15 @@ namespace TodoList.Application.TodoList.Commands
                 Category = category
             };
 
-            _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Create))
-                .First()
-                .Validate(todoItem);
+            //_todoListValidators
+            //    .Where(v => v.IsApplicable(Enums.TodoListActions.Create))
+            //    .First()
+            //    .Validate(todoItem);
 
             _todoItemCommandsRepository.Create(todoItem);
         }
 
-        public void UpdateItem(int id, string description)
+        void ITodoListCommandsService.UpdateItem(int id, string description)
         {
             var todoItem = new TodoItem(id)
             {
@@ -51,25 +53,25 @@ namespace TodoList.Application.TodoList.Commands
                 Description = description,
             };
 
-            _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Update))
-                .First()
-                .Validate(todoItem);
+            //_todoListValidators
+            //    .Where(v => v.IsApplicable(Enums.TodoListActions.Update))
+            //    .First()
+            //    .Validate(todoItem);
 
             _todoItemCommandsRepository.Update(todoItem);
         }
 
-        public void RemoveItem(int id)
+        void ITodoListCommandsService.RemoveItem(int id)
         {
-            _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Remove))
-                .First()
-                .Validate(new TodoItem(id) { Id = id });
+            //_todoListValidators
+            //    .Where(v => v.IsApplicable(Enums.TodoListActions.Remove))
+            //    .First()
+            //    .Validate(new TodoItem(id) { Id = id });
 
             _todoItemCommandsRepository.Remove(id);
         }
 
-        public void RegisterProgression(int id, DateTime dateTime, int percent)
+        void ITodoListCommandsService.RegisterProgression(int id, DateTime dateTime, int percent)
         {
             var todoItem = new TodoItem(id)
             {
@@ -86,10 +88,10 @@ namespace TodoList.Application.TodoList.Commands
                 }
             };
 
-            _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.RegisterProgression))
-                .First()
-                .Validate(todoItem);
+            //_todoListValidators
+            //    .Where(v => v.IsApplicable(Enums.TodoListActions.RegisterProgression))
+            //    .First()
+            //    .Validate(todoItem);
 
             _progressionCommandsRepository.Create(todoItem.Progressions.First());
         }

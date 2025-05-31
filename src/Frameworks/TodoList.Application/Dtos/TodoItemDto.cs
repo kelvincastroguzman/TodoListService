@@ -2,17 +2,12 @@
 {
     public class TodoItemDto
     {
-        public TodoItemDto()
-        {
-            Progressions = new List<ProgressionDto>();
-        }
+        public int Id { get; set; } = 0;
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public bool IsCompleted { get; set; } = false;
 
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
-        public bool IsCompleted { get; set; }
-
-        public virtual ICollection<ProgressionDto> Progressions { get; set; }
+        public virtual ICollection<ProgressionDto> Progressions { get; set; } = new List<ProgressionDto>();
     }
 }

@@ -8,10 +8,13 @@ namespace TodoList.Application.TodoList.Validators
     internal class CreateTodoItemValidator : ITodoListValidator
     {
         private readonly IProgressionQueriesRepository _progressionQueriesRepository;
+        private readonly ITodoListQueriesRepository _todoListQueriesRepository;
 
-        public CreateTodoItemValidator(IProgressionQueriesRepository progressionQueriesRepository)
+        public CreateTodoItemValidator(IProgressionQueriesRepository progressionQueriesRepository, 
+            ITodoListQueriesRepository todoListQueriesRepository)
         {
             _progressionQueriesRepository = progressionQueriesRepository;
+            _todoListQueriesRepository = todoListQueriesRepository;
         }
 
         public bool IsApplicable(TodoListActions action)
@@ -39,6 +42,10 @@ namespace TodoList.Application.TodoList.Validators
             if (string.IsNullOrWhiteSpace(todoItem.Category))
             {
                 throw new ArgumentException("Category cannot be empty.", nameof(todoItem.Category));
+            }
+            else if (_todoListQueriesRepository.GetAllCategoriesAsync().Result.All(c => c != todoItem.Category))
+            {
+                throw new ArgumentException("Category does not exist.", nameof(todoItem.Category));
             }
 
             var existingProgressions = _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id).Result;
