@@ -7,9 +7,10 @@ namespace TodoList.Domain.Entities;
 [Table("Progression", Schema = "dbo")]
 public partial class Progression : AggregateRoot
 {
-    public Progression()
+    public Progression(int id) : base(id)
     {
-        TodoItem = new TodoItem();
+        TodoItemId = id;
+        TodoItem = new TodoItem(id);
     }
 
     [Key]

@@ -12,7 +12,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
         {
             using var dbContext = CreateDbContext();
             var repository = new TodoItemCommandsRepository(dbContext);
-            var todoItem = new TodoItem { Id = 1, Title = "Title1", Description = "Description1", Category = "Category1" };
+            var todoItem = new TodoItem(1) { Id = 1, Title = "Title1", Description = "Description1", Category = "Category1" };
 
             repository.Create(todoItem);
             dbContext.SaveChanges();
@@ -35,11 +35,11 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
         public void Update_ChangesDescriptionOfExistingTodoItem()
         {
             using var dbContext = CreateDbContext();
-            dbContext.TodoItems.Add(new TodoItem { Id = 2, Title = "Title2", Description = "Old", Category = "Category2" });
+            dbContext.TodoItems.Add(new TodoItem(2) { Id = 2, Title = "Title2", Description = "Old", Category = "Category2" });
             dbContext.SaveChanges();
 
             var repository = new TodoItemCommandsRepository(dbContext);
-            var updatedItem = new TodoItem { Id = 2, Title = "Title2", Description = "New", Category = "Category2" };
+            var updatedItem = new TodoItem(2) { Id = 2, Title = "Title2", Description = "New", Category = "Category2" };
 
             repository.Update(updatedItem);
             dbContext.SaveChanges();
@@ -54,12 +54,12 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
         {
             using var dbContext = CreateDbContext();
             var repository = new TodoItemCommandsRepository(dbContext);
-            var nonExistentItem = new TodoItem { Id = 999, Title = "T", Description = "D", Category = "C" };
+            var nonExistentItem = new TodoItem(99) { Id = 99, Title = "T", Description = "D", Category = "C" };
 
             repository.Update(nonExistentItem);
             dbContext.SaveChanges();
 
-            var result = dbContext.TodoItems.Find(999);
+            var result = dbContext.TodoItems.Find(99);
             Assert.Null(result);
         }
 
@@ -67,7 +67,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
         public void Remove_DeletesTodoItemById()
         {
             using var dbContext = CreateDbContext();
-            dbContext.TodoItems.Add(new TodoItem { Id = 3, Title = "Title3", Description = "Description3", Category = "Category3" });
+            dbContext.TodoItems.Add(new TodoItem(3) { Id = 3, Title = "Title3", Description = "Description3", Category = "Category3" });
             dbContext.SaveChanges();
 
             var repository = new TodoItemCommandsRepository(dbContext);
@@ -85,7 +85,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
             var repository = new TodoItemCommandsRepository(dbContext);
 
             // Should not throw
-            repository.Remove(999);
+            repository.Remove(99);
             dbContext.SaveChanges();
 
             Assert.Empty(dbContext.TodoItems);

@@ -22,7 +22,7 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Commands
         public void Update(TodoItem todoItem)
         {
             TodoItem? todoItemResponse = _todoItems.Find(todoItem.Id);
-            if (todoItemResponse != null)
+            if (todoItemResponse is not null)
             {
                 todoItemResponse.Description = todoItem.Description;
                 _todoItems.Update(todoItemResponse);
@@ -32,7 +32,7 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Commands
         public void Remove(int id)
         {
             TodoItem? todoItem = _todoItems.Find(id);
-            if (todoItem != null)
+            if (todoItem is not null)
             {
                 _todoItems.Remove(todoItem);
             }

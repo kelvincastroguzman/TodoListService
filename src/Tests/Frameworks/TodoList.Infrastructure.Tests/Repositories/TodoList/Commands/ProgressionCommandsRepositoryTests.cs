@@ -15,7 +15,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
             using (TodoListDbContext dbContext = new TodoListDbContext(options))
             {
                 var repository = new ProgressionCommandsRepository(dbContext);
-                var progression = new Progression { Id = 1, TodoItemId = 1, Date = dateTime, Percent = 20 };
+                var progression = new Progression(1) { Id = 1, TodoItemId = 1, Date = dateTime, Percent = 20 };
 
                 repository.Create(progression);
                 Assert.Contains(progression, dbContext.Set<Progression>());
@@ -32,7 +32,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
 
             using (dbContext = new TodoListDbContext(options))
             {
-                dbContext.TodoItems.Add(new TodoItem
+                dbContext.TodoItems.Add(new TodoItem(2)
                 {
                     Id = 2,
                     Title = "Title2",
@@ -43,7 +43,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
 
                 var repository = new ProgressionCommandsRepository(dbContext);
 
-                var progression = new Progression { Id = 2, TodoItemId = 2, Date = dateTime, Percent = 20 };
+                var progression = new Progression(2) { Id = 2, TodoItemId = 2, Date = dateTime, Percent = 20 };
                 repository.Create(progression);
 
                 dbContext.SaveChanges();

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoList.Domain.Primitives
+﻿namespace TodoList.Domain.Primitives
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot : Entity
     {
-        protected AggregateRoot()
+        protected AggregateRoot(int id) : base(id)
         {
         }
     }

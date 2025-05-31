@@ -16,13 +16,13 @@ namespace TodoList.Application.TodoList.Queries
             _progressionQueriesRepository = progressionQueriesRepository;
         }
 
-        public async Task<IReadOnlyCollection<TodoItemDto>> PrintItems()
+        public async Task<IReadOnlyCollection<string>> PrintItems()
         {
             IReadOnlyCollection<TodoItem> todoItems = await _todoItemQueriesRepository.GetAllAsync();
 
-            var response = new List<TodoItemDto>();
+            var response = new List<string>();
 
-            foreach (TodoItem todoItem in todoItems)
+            foreach (TodoItem todoItem in todoItems.OrderBy(i => i.Id))
             {
                 IReadOnlyCollection<Progression> progressions = await _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id);
                 var dto = new TodoItemDto
@@ -34,12 +34,11 @@ namespace TodoList.Application.TodoList.Queries
                     IsCompleted = IsCompleted(),
                     Progressions = todoItem.Progressions.Select(p => new ProgressionDto
                     {
-                        Id = p.Id,
                         Date = p.Date,
                         Percent = p.Percent
                     }).ToList()
                 };
-                response.Add(dto);
+                response.Add($"{dto.Id}) {dto.Title} - {dto.Description} ({dto.Category}) Completed:{dto.IsCompleted}.");
             }
 
             return response.AsReadOnly();

@@ -31,7 +31,7 @@ namespace TodoList.Infrastructure.Tests.Persistence
             using (var context = new TodoListDbContext(options))
             {
                 var category = new Category { Name = "Work" };
-                var todoItem = new TodoItem { Id = 1, Title = "Title", Description = "Description", Category = "Work" };
+                var todoItem = new TodoItem(1) { Id = 1, Title = "Title", Description = "Description", Category = "Work" };
                 context.Categories.Add(category);
                 context.TodoItems.Add(todoItem);
                 context.SaveChanges();
