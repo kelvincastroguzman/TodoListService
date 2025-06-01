@@ -1,0 +1,30 @@
+{
+    "Routes": [
+        // TodoListCommandsController /////////////////////////////////////////////////////////////////////////////////////////////
+        // Create *****
+
+        // Update *****
+
+        // Delete *****
+
+        // RegisterProgressions *****
+
+        // TodoListQueriesController /////////////////////////////////////////////////////////////////////////////////////////////
+        // GetPrintItems *****
+        {
+            "DownstreamPathTemplate": "/api/TodoListQueries/GetPrintItems",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListQueries/GetPrintItems",
+            "UpstreamHttpMethod": [ "Get" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "UseServiceDiscovery": false
+    }
+}

@@ -1,6 +1,6 @@
-@TodoList.WebApi_HostAddress = http://localhost:5258
+@TodoList.WebApi_HostAddress = https://localhost:7102
 
-GET {{TodoList.WebApi_HostAddress}}/weatherforecast/
+GET {{TodoList.WebApi_HostAddress}}/api/TodoListQueries/GetPrintItems
 Accept: application/json
 
 ###
