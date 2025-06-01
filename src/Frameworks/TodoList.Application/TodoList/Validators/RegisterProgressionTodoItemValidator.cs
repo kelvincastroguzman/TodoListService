@@ -2,7 +2,6 @@
 using TodoList.Application.TodoList.Validators.Contracts;
 using TodoList.Domain.Entities;
 using TodoList.Domain.IRepositories.TodoList.Queries;
-using static TodoList.Application.Constants.Constants.Validations.TodoItem;
 
 namespace TodoList.Application.TodoList.Validators
 {
@@ -15,12 +14,12 @@ namespace TodoList.Application.TodoList.Validators
             _progressionQueriesRepository = progressionQueriesRepository;
         }
 
-        public bool IsApplicable(TodoListActions action)
+        bool ITodoListValidator.IsApplicable(TodoListActions action)
         {
             return action == TodoListActions.RegisterProgression;
         }
 
-        public void Validate(TodoItem todoItem)
+        void ITodoListValidator.Validate(TodoItem todoItem)
         {
             var existingProgressions = _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id).Result;
 

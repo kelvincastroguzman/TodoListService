@@ -14,12 +14,12 @@ namespace TodoList.Application.TodoList.Validators
             _progressionQueriesRepository = progressionQueriesRepository;
         }
 
-        public bool IsApplicable(TodoListActions action)
+        bool ITodoListValidator.IsApplicable(TodoListActions action)
         {
             return action == TodoListActions.Update;
         }
 
-        public void Validate(TodoItem todoItem)
+        void ITodoListValidator.Validate(TodoItem todoItem)
         {
             if (todoItem.Id <= 0)
             {

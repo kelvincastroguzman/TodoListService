@@ -1,11 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using TodoList.Application.Extensions;
-using TodoList.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
-
-string todoListDbConnectionString = GetDbConnectionString(builder);
-builder.Services.AddDbContext<TodoListDbContext>(options => options.UseSqlServer(todoListDbConnectionString));
 
 builder.Services.AddCors(options =>
 {
@@ -17,7 +12,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddTodoListFramework();
+builder.Services.AddTodoListFramework(GetDbConnectionString(builder));
 
 var app = builder.Build();
 
