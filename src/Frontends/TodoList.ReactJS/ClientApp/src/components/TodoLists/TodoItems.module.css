@@ -1,0 +1,14 @@
+.todoItems {
+  padding: 1rem;
+  background-color: rgb(31, 31, 31);
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 95%;
+}
+
+.todoItems__message {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.5rem;
+  display: block;
+}

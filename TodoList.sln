@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{9E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Gateway.WebApi.Tests", "src\Tests\Gateways\TodoList.Gateway.WebApi.Tests\TodoList.Gateway.WebApi.Tests.csproj", "{01D87DF2-3B8C-410E-87F6-4017DB634075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.ReactJS", "src\Frontends\TodoList.ReactJS\TodoList.ReactJS.csproj", "{B536A401-45CF-37AA-D564-5183753EA28A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{01D87DF2-3B8C-410E-87F6-4017DB634075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01D87DF2-3B8C-410E-87F6-4017DB634075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01D87DF2-3B8C-410E-87F6-4017DB634075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B536A401-45CF-37AA-D564-5183753EA28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B536A401-45CF-37AA-D564-5183753EA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B536A401-45CF-37AA-D564-5183753EA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B536A401-45CF-37AA-D564-5183753EA28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{8E96269C-6AA2-4D62-9DF5-5EF99C368018} = {2945160D-A667-4ED8-90CA-B601009985D6}
 		{9E5C0FA1-65D2-4D26-83D9-37FBA05A15B2} = {6E011383-6545-4FF7-8A26-ADD956885068}
 		{01D87DF2-3B8C-410E-87F6-4017DB634075} = {9E5C0FA1-65D2-4D26-83D9-37FBA05A15B2}
+		{B536A401-45CF-37AA-D564-5183753EA28A} = {C8B79C18-2661-4040-A820-C93454124C40}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C6D036A-23F4-4511-9C66-D1D36B584A0D}

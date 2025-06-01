@@ -1,0 +1,7 @@
+.pageContainer {
+  width: 90%;
+  max-width: 70rem;
+  padding: 3rem;
+  margin: 2rem auto;
+  text-align: center;
+}

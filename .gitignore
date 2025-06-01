@@ -28,3 +28,6 @@
 /src/Tests/Frameworks/TodoList.Infrastructure.Tests/bin/Debug/net8.0
 /src/Tests/Gateways/TodoList.Gateway.WebApi.Tests/bin/Debug/net8.0
 /src/Tests/Microservices/TodoList.WebApi/bin/Debug/net8.0
+/src/Frontends/TodoList.ReactJS/obj/Debug
+/src/Frontends/TodoList.ReactJS/bin
+/src/Frontends/TodoList.ReactJS/obj
