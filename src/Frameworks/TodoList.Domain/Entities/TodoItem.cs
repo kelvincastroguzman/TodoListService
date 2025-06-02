@@ -14,10 +14,10 @@ public partial class TodoItem : AggregateRoot
     }
 
     [Key]
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Category { get; set; }
+    public new int Id { get; set; }
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public string Category { get; set; } = null!;
 
     public virtual ICollection<Progression> Progressions { get; set; }
 }

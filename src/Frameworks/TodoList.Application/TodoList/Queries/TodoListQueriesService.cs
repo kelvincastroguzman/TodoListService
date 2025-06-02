@@ -8,10 +8,23 @@ namespace TodoList.Application.TodoList.Queries
     internal class TodoListQueriesService : ITodoListQueriesService
     {
         private readonly ITodoItemQueriesRepository _todoItemQueriesRepository;
+        private readonly ITodoListQueriesRepository _todoListQueriesRepository;
 
-        public TodoListQueriesService(ITodoItemQueriesRepository todoItemQueriesRepository)
+        public TodoListQueriesService(ITodoItemQueriesRepository todoItemQueriesRepository,
+            ITodoListQueriesRepository todoListQueriesRepository)
         {
             _todoItemQueriesRepository = todoItemQueriesRepository;
+            _todoListQueriesRepository = todoListQueriesRepository;
+        }
+
+        int ITodoListQueriesService.GetNextId()
+        {
+            return _todoListQueriesRepository.GetNextIdAsync().Result;
+        }
+
+        IReadOnlyCollection<string> ITodoListQueriesService.GetAllCategories()
+        {
+            return _todoListQueriesRepository.GetAllCategoriesAsync().Result;
         }
 
         IReadOnlyCollection<TodoItemDto> ITodoListQueriesService.PrintItems()

@@ -11,16 +11,19 @@ namespace TodoList.Application.TodoList.Commands
         private readonly ITodoItemCommandsRepository _todoItemCommandsRepository;
         private readonly IProgressionCommandsRepository _progressionCommandsRepository;
         private readonly ITodoListQueriesRepository _todoListQueriesRepository;
+        private readonly IProgressionQueriesRepository _progressionQueriesRepository;
         private readonly IEnumerable<ITodoListValidator> _todoListValidators;
 
         public TodoListCommandsService(ITodoItemCommandsRepository todoItemCommandsRepository, 
             IProgressionCommandsRepository progressionCommandsRepository,
             ITodoListQueriesRepository todoListQueriesRepository,
+            IProgressionQueriesRepository progressionQueriesRepository,
             IEnumerable<ITodoListValidator> todoListValidators)
         {
             _todoItemCommandsRepository = todoItemCommandsRepository;
             _progressionCommandsRepository = progressionCommandsRepository;
             _todoListQueriesRepository = todoListQueriesRepository;
+            _progressionQueriesRepository = progressionQueriesRepository;
             _todoListValidators = todoListValidators;
         }
 
@@ -69,8 +72,11 @@ namespace TodoList.Application.TodoList.Commands
 
         void ITodoListCommandsService.RegisterProgression(int id, DateTime dateTime, int percent)
         {
-            var progression = new Progression(id)
+            int progressionId = _progressionQueriesRepository.GetNextIdAsync().Result;
+            var progression = new Progression(progressionId)
             {
+                Id = progressionId,
+                TodoItemId = id,
                 Date = dateTime,
                 Percent = percent
             };

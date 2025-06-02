@@ -30,6 +30,10 @@ namespace TodoList.Application.TodoList.Validators
             {
                 throw new ArgumentException($"{nameof(todoItem.Description)} cannot be empty.");
             }
+            else if (todoItem.Description.Length > Constants.Constants.Validations.TodoItem.MAX_DESCRIPTION_LENGTH)
+            {
+                throw new ArgumentException($"{nameof(todoItem.Description)} cannot exceed {Constants.Constants.Validations.TodoItem.MAX_DESCRIPTION_LENGTH} characters.");
+            }
 
             var existingProgressions = _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id).Result;
             int totalPercent = existingProgressions?.Sum(p => p.Percent) ?? 0;

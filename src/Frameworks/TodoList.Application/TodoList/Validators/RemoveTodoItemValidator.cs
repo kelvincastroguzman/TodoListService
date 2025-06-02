@@ -31,7 +31,7 @@ namespace TodoList.Application.TodoList.Validators
 
             if (totalPercent > Constants.Constants.Validations.TodoItem.Progression.PERCENT_NOT_ALLOWED_FOR_MODIFICATIONS)
             {
-                throw new ArgumentException($"Todo-item cannot be updated. The current percentage ({nameof(totalPercent)}) is higher than 50.");
+                throw new ArgumentException($"Todo-item cannot be removed. The current percentage ({totalPercent}) is higher than 50.");
             }
         }
     }

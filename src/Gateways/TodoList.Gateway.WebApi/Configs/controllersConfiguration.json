@@ -54,6 +54,32 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         // TodoListQueriesController /////////////////////////////////////////////////////////////////////////////////////////////
+        // GetNextTodoItemId *****
+        {
+            "DownstreamPathTemplate": "/api/TodoListQueries/GetNextTodoItemId",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListQueries/GetNextTodoItemId",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        // GetAllCategories *****
+        {
+            "DownstreamPathTemplate": "/api/TodoListQueries/GetAllCategories",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListQueries/GetAllCategories",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
         // GetPrintItems *****
         {
             "DownstreamPathTemplate": "/api/TodoListQueries/GetPrintItems",

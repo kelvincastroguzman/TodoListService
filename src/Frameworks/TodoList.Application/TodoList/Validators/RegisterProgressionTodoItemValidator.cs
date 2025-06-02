@@ -41,7 +41,7 @@ namespace TodoList.Application.TodoList.Validators
 
             if (currentPercent > Constants.Constants.Validations.TodoItem.Progression.PERCENT_NOT_ALLOWED_FOR_MODIFICATIONS)
             {
-                throw new ArgumentException($"Todo-item cannot be updated. The current percentage ({currentPercent}) is higher than 50.");
+                throw new ArgumentException($"Progression cannot be register. The current percentage ({currentPercent}) is higher than 50.");
             }
 
             int totalPercent = currentPercent + todoItem.Progressions?.Sum(p => p.Percent) ?? 0;

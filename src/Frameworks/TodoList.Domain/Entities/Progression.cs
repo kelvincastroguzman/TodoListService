@@ -13,7 +13,7 @@ public partial class Progression : AggregateRoot
     }
 
     [Key]
-    public int Id { get; set; }
+    public new int Id { get; set; }
     public DateTime Date { get; set; }
     public int Percent { get; set; }
     public int TodoItemId { get; set; }

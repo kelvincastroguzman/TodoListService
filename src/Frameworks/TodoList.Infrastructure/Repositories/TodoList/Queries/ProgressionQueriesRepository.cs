@@ -17,6 +17,12 @@ namespace TodoList.Infrastructure.Repositories.TodoList.Queries
             _progressions = dbContext.Set<Progression>();
         }
 
+        public async Task<int> GetNextIdAsync()
+        {
+            int maxId = await _progressions.MaxAsync(t => (int?)t.Id) ?? 0;
+            return maxId + 1;
+        }
+
         public async Task<IReadOnlyCollection<Progression>> GetByTodoItemIdAsync(int todoItemId)
         {
             return await _progressions

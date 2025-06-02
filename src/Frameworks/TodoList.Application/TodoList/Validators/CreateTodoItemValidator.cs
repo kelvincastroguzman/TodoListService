@@ -30,10 +30,18 @@ namespace TodoList.Application.TodoList.Validators
             {
                 throw new ArgumentException($"{nameof(todoItem.Title)} cannot be empty.");
             }
+            else if (todoItem.Title.Length > Constants.Constants.Validations.TodoItem.MAX_TITLE_LENGTH)
+            {
+                throw new ArgumentException($"{nameof(todoItem.Title)} cannot exceed {Constants.Constants.Validations.TodoItem.MAX_TITLE_LENGTH} characters.");
+            }
 
             if (string.IsNullOrWhiteSpace(todoItem.Description))
             {
                 throw new ArgumentException($"{nameof(todoItem.Description)} cannot be empty.");
+            }
+            else if (todoItem.Description.Length > Constants.Constants.Validations.TodoItem.MAX_DESCRIPTION_LENGTH)
+            {
+                throw new ArgumentException($"{nameof(todoItem.Description)} cannot exceed {Constants.Constants.Validations.TodoItem.MAX_DESCRIPTION_LENGTH} characters.");
             }
 
             if (string.IsNullOrWhiteSpace(todoItem.Category))

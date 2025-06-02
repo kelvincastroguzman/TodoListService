@@ -8,6 +8,9 @@ namespace TodoList.Application.Constants
         {
             public struct TodoItem
             {
+                public const int MAX_TITLE_LENGTH = 50;
+                public const int MAX_DESCRIPTION_LENGTH = 100;
+
                 public struct Progression
                 {
                     public const int MAX_PERCENT = 100;

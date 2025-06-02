@@ -16,6 +16,55 @@ namespace TodoList.WebApi.Controllers.TodoList.Queries
         }
 
         [HttpGet]
+        [Route("GetNextTodoItemId")]
+        public IActionResult GetNextTodoItemId()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Conflict($"ModelState is not valid: {ModelState?.ToString()}");
+            }
+
+            int nextId;
+
+            try
+            {
+                nextId = _todoListQueriesService.GetNextId();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
+
+            return Ok(nextId);
+        }
+
+        [HttpGet]
+        [Route("GetAllCategories")]
+        public IActionResult GetAllCategories()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Conflict($"ModelState is not valid: {ModelState?.ToString()}");
+            }
+
+            IReadOnlyCollection<string> categories;
+
+            try
+            {
+                categories = _todoListQueriesService.GetAllCategories();
+                if (categories.Count == 0)
+                    return NotFound("No categories found");
+            }
+
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
+
+            return Ok(categories);
+        }
+
+        [HttpGet]
         [Route("GetPrintItems")]
         public IActionResult GetPrintItems()
         {

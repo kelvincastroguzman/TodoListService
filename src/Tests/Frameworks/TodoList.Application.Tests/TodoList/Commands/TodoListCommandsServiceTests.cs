@@ -5,6 +5,7 @@ using TodoList.Application.TodoList.Validators.Contracts;
 using TodoList.Domain.Entities;
 using TodoList.Domain.IRepositories.TodoList.Commands;
 using TodoList.Domain.IRepositories.TodoList.Queries;
+using TodoList.Infrastructure.Repositories.TodoList.Queries;
 
 namespace TodoList.Application.Tests.TodoList.Commands
 {
@@ -13,6 +14,7 @@ namespace TodoList.Application.Tests.TodoList.Commands
         private readonly Mock<ITodoItemCommandsRepository> _todoItemCommandsRepoMock;
         private readonly Mock<IProgressionCommandsRepository> _progressionCommandsRepoMock;
         private readonly Mock<ITodoListQueriesRepository> _todoListQueriesRepoMock;
+        private readonly Mock<IProgressionQueriesRepository> _progressionQueriesRepoMock;
         private readonly Mock<ITodoListValidator> _createValidatorMock;
         private readonly Mock<ITodoListValidator> _updateValidatorMock;
         private readonly Mock<ITodoListValidator> _removeValidatorMock;
@@ -24,6 +26,7 @@ namespace TodoList.Application.Tests.TodoList.Commands
             _todoItemCommandsRepoMock = new Mock<ITodoItemCommandsRepository>();
             _progressionCommandsRepoMock = new Mock<IProgressionCommandsRepository>();
             _todoListQueriesRepoMock = new Mock<ITodoListQueriesRepository>();
+            _progressionQueriesRepoMock = new Mock<IProgressionQueriesRepository>();
 
             _createValidatorMock = new Mock<ITodoListValidator>();
             _updateValidatorMock = new Mock<ITodoListValidator>();
@@ -47,6 +50,7 @@ namespace TodoList.Application.Tests.TodoList.Commands
                 _todoItemCommandsRepoMock.Object,
                 _progressionCommandsRepoMock.Object,
                 _todoListQueriesRepoMock.Object,
+                _progressionQueriesRepoMock.Object,
                 validators
             );
         }

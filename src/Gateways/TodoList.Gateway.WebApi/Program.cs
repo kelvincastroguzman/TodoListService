@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
         .AllowAnyHeader());
 });
 
-builder.Configuration.AddJsonFile("configuration.json", optional: true, reloadOnChange: true);
+builder.Configuration.AddJsonFile("Configs/controllersConfiguration.json", optional: true, reloadOnChange: true);
 
 IConfigurationSection appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
