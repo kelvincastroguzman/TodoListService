@@ -4,10 +4,11 @@ import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import classes from "./TodoItem.module.css";
 import ProgressBar from "../UI/ProgressBar/ProgressBar";
+import { todoListCommandsService } from "../../services";
 
 const TodoItem = (props) => {
-  const deleteHandler = () => {
-    alert("No developed this function!");
+  const deleteHandler = async () => {
+    await todoListCommandsService.removeTodoItem(props.todoItemInput.id);
   };
 
   const updateHandler = () => {

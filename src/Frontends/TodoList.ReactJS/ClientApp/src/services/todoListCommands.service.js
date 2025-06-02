@@ -16,7 +16,7 @@ async function updateTodoItem(todoItem) {
 }
 
 async function removeTodoItem(id) {
-  return await fetchRequest("/TodoListCommands/RemoveTodoItem", "DELETE", id);
+  return await fetchRequest(`/TodoListCommands/RemoveTodoItem/${id}`, "DELETE");
 }
 
 async function registerProgression(registerProgression) {

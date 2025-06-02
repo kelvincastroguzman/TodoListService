@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+import { todoListQueriesService } from "../../services";
 import { splitUserMessage } from "../../helpers";
 import ErrorModal from "../UI/ErrorModal/ErrorModal";
 import Button from "../UI/Button/Button";
 import classes from "./TodoItemForm.module.css";
 
 const TodoItemForm = (props) => {
+  const [categories, setCategories] = useState([]);
   const [enteredId, setEnteredId] = useState(props.todoItemInput.id);
+  const [enteredNextTodoItemId, setEnteredNextTodoItemId] = useState(0);
   const [enteredTitle, setEnteredTitle] = useState(props.todoItemInput.title);
   const [enteredDescription, setEnteredDescription] = useState(props.todoItemInput.description);
-  const [enteredCategoryId, setEnteredCategoryId] = useState(props.todoItemInput.category);
+  const [enteredCategoryValue, setEnteredCategoryValue] = useState(props.todoItemInput.category);
   const [error, setError] = useState();
+
+    useEffect(() => {
+    const fetchData = async () => {
+      const nextTodoItemId = await todoListQueriesService.getNextTodoItemId();
+      setEnteredNextTodoItemId(nextTodoItemId);
+      const categoryList = await todoListQueriesService.getAllCategories();
+      if (categoryList !== null) {
+        const categoriesUpdated = categoryList.map((auxCategory) => {
+          return auxCategory;
+        });
+        setCategories(categoriesUpdated);
+      }
+    };
+
+    fetchData();
+    return () => {};
+  }, []);
 
   const closeErrorModalHandler = () => {
     setError(null);
@@ -24,8 +44,8 @@ const TodoItemForm = (props) => {
     setEnteredDescription(event.target.value);
   };
 
-  const categoryIdChangeHandler = (event) => {
-    setEnteredCategoryId(event.target.value);
+  const categoryValueChangeHandler = (event) => {
+    setEnteredCategoryValue(event.target.value);
   };
 
   const createTodoItemHandler = () => {
@@ -34,10 +54,10 @@ const TodoItemForm = (props) => {
     }
 
     const todoItemData = {
-      id: enteredId,
+      id: enteredNextTodoItemId,
       title: enteredTitle,
       description: enteredDescription,
-      category: enteredCategoryId,
+      category: enteredCategoryValue,
     };
 
     props.onCreateTodoItemData(todoItemData);
@@ -53,7 +73,7 @@ const TodoItemForm = (props) => {
       id: enteredId,
       title: enteredTitle,
       description: enteredDescription,
-      category: enteredCategoryId,
+      category: enteredCategoryValue,
     };
 
     props.onUpdateTodoItemData(todoItemData);
@@ -75,7 +95,7 @@ const TodoItemForm = (props) => {
       isValid = false;
     }
 
-    if (!enteredCategoryId) {
+    if (!enteredCategoryValue) {
       userMessage += "* Category is required.\n";
       isValid = false;
     }
@@ -99,7 +119,7 @@ const TodoItemForm = (props) => {
     setEnteredId("");
     setEnteredTitle("");
     setEnteredDescription("");
-    setEnteredCategoryId("");
+    setEnteredCategoryValue("");
   };
 
   return (
@@ -126,12 +146,16 @@ const TodoItemForm = (props) => {
           <div className={classes["save-todoItem__control"]}>
             <label htmlFor="category">Category</label>
             <select
-              value={enteredCategoryId}
-              onChange={categoryIdChangeHandler}
+              value={enteredCategoryValue}
+              onChange={categoryValueChangeHandler}
             >
               <option value="">Select one</option>
-              <option key="1" value="Work">Work</option>
-              <option key="2" value="Sport">Sport</option>
+              {categories &&
+                categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
             </select>
           </div>
         </div>

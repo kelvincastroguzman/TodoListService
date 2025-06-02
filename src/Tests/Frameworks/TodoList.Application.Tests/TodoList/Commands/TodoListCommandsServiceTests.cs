@@ -49,7 +49,6 @@ namespace TodoList.Application.Tests.TodoList.Commands
             _service = new TodoListCommandsService(
                 _todoItemCommandsRepoMock.Object,
                 _progressionCommandsRepoMock.Object,
-                _todoListQueriesRepoMock.Object,
                 _progressionQueriesRepoMock.Object,
                 validators
             );

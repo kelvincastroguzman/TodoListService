@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { todoListQueriesService, todoListCommandsService } from "../../services";
 import SaveTodoItem from "./SaveTodoItem";
+import RegisterProgressionTodoItem from "./RegisterProgressionTodoItem";
 import TodoItemsList from "./TodoItemsList";
 import ErrorModal from "../UI/ErrorModal/ErrorModal";
 import Card from "../UI/Card/Card";
@@ -18,6 +19,12 @@ const TodoItems = () => {
     category: "",
     isCompleted: "",
     progressions: [],
+  });
+  const [isEditingRegisterProgression, setIsEditingRegisterProgression] = useState(false);
+  const [registerProgressionInput, setRegisterProgressionInput] = useState({
+    todoItemId: "",
+    date: "",
+    percent: "",
   });
   const [error, setError] = useState();
 
@@ -89,6 +96,27 @@ const TodoItems = () => {
     setIsEditing(false);
   };
 
+  
+
+  const registerProgressionHandler = async (registerProgression) => {
+    setIsEditingRegisterProgression(false);
+    await todoListCommandsService.registerProgression(registerProgression);
+    getPrintItems();
+  };
+
+  const openRegisterProgressionFormHandler = () => {
+    setIsEditingRegisterProgression(true);
+    setRegisterProgressionInput({
+      todoItemId: "",
+      date: "",
+      percent: "",
+    });
+  };
+
+  const stopEditingRegisterProgressionHandler = () => {
+    setIsEditingRegisterProgression(false);
+  };
+
   return (
     <>
       {error && (
@@ -110,6 +138,15 @@ const TodoItems = () => {
         onCreateTodoItem={createTodoItemHandler}
         onUpdateTodoItem={updateTodoItemHandler}
       />
+
+      <RegisterProgressionTodoItem
+        isEditingRegisterProgression={isEditingRegisterProgression}
+        todoItems={todoItems}
+        onCloseEditForm={stopEditingRegisterProgressionHandler}
+        onOpenNewForm={openRegisterProgressionFormHandler}
+        onRegisterProgression={registerProgressionHandler}
+      />
+
       <Card className={classes.todoItems}>
         <TodoItemsList
           todoItems={todoItems}

@@ -16,7 +16,7 @@ const TodoItemsList = (props) => {
     <ul className={classes["todoItems-list"]}>
       {props.todoItems.map((todoItem) => (
         <TodoItem
-          key={todoItem.uniqueId}
+          key={todoItem.id}
           todoItemInput={todoItem}
           onUpdate={props.onOpenEditForm}
         />
