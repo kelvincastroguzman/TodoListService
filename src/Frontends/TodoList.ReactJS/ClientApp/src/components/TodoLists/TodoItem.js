@@ -39,7 +39,7 @@ const TodoItem = (props) => {
       </Card>
       <Card className={classes["todo-item"]}>
         <div className={classes["todo-item__description"]}>
-          <il>
+          <ul>
             {props.todoItemInput.progressions.map((progression, index) => (
               accumulated += progression.percent,
               <h2>
@@ -48,7 +48,7 @@ const TodoItem = (props) => {
                 </div>
               </h2>
             ))}
-          </il>
+          </ul>
         </div>
       </Card>
     </li>

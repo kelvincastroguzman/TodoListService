@@ -37,11 +37,10 @@ namespace TodoList.Application.TodoList.Commands
             };
 
             _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Create))
-                .First()
+                .First(v => v.IsApplicable(Enums.TodoListActions.Create))
                 .Validate(todoItem);
 
-            _todoItemCommandsRepository.Create(todoItem);
+            _ = _todoItemCommandsRepository.CreateAsync(todoItem).Result;
         }
 
         void ITodoListCommandsService.UpdateItem(int id, string description)
@@ -53,46 +52,40 @@ namespace TodoList.Application.TodoList.Commands
             };
 
             _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Update))
-                .First()
+                .First(v => v.IsApplicable(Enums.TodoListActions.Update))
                 .Validate(todoItem);
 
-            _todoItemCommandsRepository.Update(todoItem);
+            _ = _todoItemCommandsRepository.UpdateAsync(todoItem).Result;
         }
 
         void ITodoListCommandsService.RemoveItem(int id)
         {
             _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.Remove))
-                .First()
-                .Validate(new TodoItem(id) { Id = id });
+                .First(v => v.IsApplicable(Enums.TodoListActions.Remove))
+                .Validate(new TodoItem(id));
 
-            _todoItemCommandsRepository.Remove(id);
+            _ = _todoItemCommandsRepository.RemoveAsync(id).Result;
         }
 
         void ITodoListCommandsService.RegisterProgression(int id, DateTime dateTime, int percent)
         {
+            var progression = new Progression(id)
+            {
+                Date = dateTime,
+                Percent = percent
+            };
+
             var todoItem = new TodoItem(id)
             {
                 Id = id,
-                Progressions = new List<Progression>
-                {
-                    new Progression(id)
-                    {
-                        Id = id,
-                        TodoItemId = id,
-                        Date = dateTime,
-                        Percent = percent
-                    }
-                }
+                Progressions = [progression]
             };
 
             _todoListValidators
-                .Where(v => v.IsApplicable(Enums.TodoListActions.RegisterProgression))
-                .First()
+                .First(v => v.IsApplicable(Enums.TodoListActions.RegisterProgression))
                 .Validate(todoItem);
 
-            _progressionCommandsRepository.Create(todoItem.Progressions.First());
+            _ = _progressionCommandsRepository.CreateAsync(progression).Result;
         }
     }
 }

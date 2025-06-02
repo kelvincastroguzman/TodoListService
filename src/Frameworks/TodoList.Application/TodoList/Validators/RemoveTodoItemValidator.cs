@@ -23,7 +23,7 @@ namespace TodoList.Application.TodoList.Validators
         {
             if (todoItem.Id <= 0)
             {
-                throw new ArgumentException("Id must be a positive integer.", nameof(todoItem.Id));
+                throw new ArgumentException($"{nameof(todoItem.Id)} must be a positive integer.");
             }
 
             var existingProgressions = _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id).Result;
@@ -31,7 +31,7 @@ namespace TodoList.Application.TodoList.Validators
 
             if (totalPercent > Constants.Constants.Validations.TodoItem.Progression.PERCENT_NOT_ALLOWED_FOR_MODIFICATIONS)
             {
-                throw new ArgumentException("Todo-item cannot be updated. The current percentage is higher than 50.", nameof(totalPercent));
+                throw new ArgumentException($"Todo-item cannot be updated. The current percentage ({nameof(totalPercent)}) is higher than 50.");
             }
         }
     }

@@ -2,13 +2,57 @@
     "Routes": [
         // TodoListCommandsController /////////////////////////////////////////////////////////////////////////////////////////////
         // Create *****
-
+        {
+            "DownstreamPathTemplate": "/api/TodoListCommands/CreateTodoItem",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListCommands/CreateTodoItem",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
         // Update *****
-
+        {
+            "DownstreamPathTemplate": "/api/TodoListCommands/UpdateTodoItem",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListCommands/UpdateTodoItem",
+            "UpstreamHttpMethod": [ "Put" ]
+        },
         // Delete *****
-
+        {
+            "DownstreamPathTemplate": "/api/TodoListCommands/RemoveTodoItem/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListCommands/RemoveTodoItem/{id}",
+            "UpstreamHttpMethod": [ "Delete" ]
+        },
         // RegisterProgressions *****
-
+        {
+            "DownstreamPathTemplate": "/api/TodoListCommands/RegisterProgression",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7002
+                }
+            ],
+            "UpstreamPathTemplate": "/TodoListCommands/RegisterProgression",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
         // TodoListQueriesController /////////////////////////////////////////////////////////////////////////////////////////////
         // GetPrintItems *****
         {

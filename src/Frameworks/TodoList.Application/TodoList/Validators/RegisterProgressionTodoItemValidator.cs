@@ -27,26 +27,28 @@ namespace TodoList.Application.TodoList.Validators
             {
                 if (existingProgressions.Any(e => e.Date >= progression.Date))
                 {
-                    throw new ArgumentException("Progression date must be greater than existing dates.", nameof(progression.Date));
+                    throw new ArgumentException($"{nameof(progression.Date)} must be greater than existing dates.");
                 }
 
                 if (progression.Percent < Constants.Constants.Validations.TodoItem.Progression.MIN_PERCENT
                     || progression.Percent >= Constants.Constants.Validations.TodoItem.Progression.MAX_PERCENT)
                 {
-                    throw new ArgumentException("Progression percent must be between 1 and 99.", nameof(progression.Percent));
+                    throw new ArgumentException($"{nameof(progression.Percent)} must be between 1 and 99. ");
                 }
             });
 
-            int totalPercent = existingProgressions?.Sum(p => p.Percent) ?? 0;
+            int currentPercent = existingProgressions?.Sum(p => p.Percent) ?? 0;
 
-            if (totalPercent > Constants.Constants.Validations.TodoItem.Progression.PERCENT_NOT_ALLOWED_FOR_MODIFICATIONS)
+            if (currentPercent > Constants.Constants.Validations.TodoItem.Progression.PERCENT_NOT_ALLOWED_FOR_MODIFICATIONS)
             {
-                throw new ArgumentException("Todo-item cannot be updated. The current percentage is higher than 50.", nameof(totalPercent));
+                throw new ArgumentException($"Todo-item cannot be updated. The current percentage ({currentPercent}) is higher than 50.");
             }
 
-            if (totalPercent + todoItem.Progressions?.Sum(p => p.Percent) > Constants.Constants.Validations.TodoItem.Progression.MAX_PERCENT)
+            int totalPercent = currentPercent + todoItem.Progressions?.Sum(p => p.Percent) ?? 0;
+
+            if (currentPercent > Constants.Constants.Validations.TodoItem.Progression.MAX_PERCENT)
             {
-                throw new ArgumentException("Total progress percentage cannot exceed 100.", nameof(todoItem.Progressions));
+                throw new ArgumentException($"Total progress percentage ({totalPercent}) cannot exceed 100.");
             }
         }
     }

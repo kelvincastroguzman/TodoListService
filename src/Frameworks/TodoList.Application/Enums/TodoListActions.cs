@@ -1,6 +1,6 @@
 ﻿namespace TodoList.Application.Enums
 {
-    internal enum TodoListActions
+    public enum TodoListActions
     {
         Create,
         Update,

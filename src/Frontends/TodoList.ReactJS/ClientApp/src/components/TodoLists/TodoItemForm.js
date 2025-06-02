@@ -9,9 +9,7 @@ const TodoItemForm = (props) => {
   const [enteredId, setEnteredId] = useState(props.todoItemInput.id);
   const [enteredTitle, setEnteredTitle] = useState(props.todoItemInput.title);
   const [enteredDescription, setEnteredDescription] = useState(props.todoItemInput.description);
-  const [enteredCategoryId, setEnteredCategoryId] = useState(
-    props.todoItemInput.category
-  );
+  const [enteredCategoryId, setEnteredCategoryId] = useState(props.todoItemInput.category);
   const [error, setError] = useState();
 
   const closeErrorModalHandler = () => {

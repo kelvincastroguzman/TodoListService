@@ -7,8 +7,8 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
 {
     public class ProgressionCommandsRepositoryTests
     {
-        [Fact(Skip = "TODO: WIP on Create Progression")]
-        public void Create_AddsProgressionToDbSet()
+        [Fact]
+        public async void Create_AddsProgressionToDbSet()
         {
             DateTime dateTime = DateTime.Now;
             var options = CreateInMemoryOptions();
@@ -17,13 +17,13 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
                 var repository = new ProgressionCommandsRepository(dbContext);
                 var progression = new Progression(1) { Id = 1, TodoItemId = 1, Date = dateTime, Percent = 20 };
 
-                repository.Create(progression);
+                await repository.CreateAsync(progression);
                 Assert.Contains(progression, dbContext.Set<Progression>());
             }
         }
 
-        [Fact(Skip = "TODO: WIP on Create Progression")]
-        public void Create_PersistsProgressionAfterSaveChanges()
+        [Fact]
+        public async void Create_PersistsProgressionAfterSaveChanges()
         {
             DateTime dateTime = DateTime.Now;
             var options = CreateInMemoryOptions();
@@ -44,7 +44,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
                 var repository = new ProgressionCommandsRepository(dbContext);
 
                 var progression = new Progression(2) { Id = 2, TodoItemId = 2, Date = dateTime, Percent = 20 };
-                repository.Create(progression);
+                await repository.CreateAsync(progression);
 
                 dbContext.SaveChanges();
 

@@ -7,13 +7,10 @@ namespace TodoList.Application.TodoList.Validators
 {
     internal class CreateTodoItemValidator : ITodoListValidator
     {
-        private readonly IProgressionQueriesRepository _progressionQueriesRepository;
         private readonly ITodoListQueriesRepository _todoListQueriesRepository;
 
-        public CreateTodoItemValidator(IProgressionQueriesRepository progressionQueriesRepository, 
-            ITodoListQueriesRepository todoListQueriesRepository)
+        public CreateTodoItemValidator(ITodoListQueriesRepository todoListQueriesRepository)
         {
-            _progressionQueriesRepository = progressionQueriesRepository;
             _todoListQueriesRepository = todoListQueriesRepository;
         }
 
@@ -26,49 +23,26 @@ namespace TodoList.Application.TodoList.Validators
         {
             if (todoItem.Id <= 0)
             {
-                throw new ArgumentException("Id must be a positive integer.", nameof(todoItem.Id));
+                throw new ArgumentException($"{nameof(todoItem.Id)} must be a positive integer.");
             }
 
             if (string.IsNullOrWhiteSpace(todoItem.Title))
             {
-                throw new ArgumentException("Title cannot be empty.", nameof(todoItem.Title));
+                throw new ArgumentException($"{nameof(todoItem.Title)} cannot be empty.");
             }
 
             if (string.IsNullOrWhiteSpace(todoItem.Description))
             {
-                throw new ArgumentException("Description cannot be empty.", nameof(todoItem.Description));
+                throw new ArgumentException($"{nameof(todoItem.Description)} cannot be empty.");
             }
 
             if (string.IsNullOrWhiteSpace(todoItem.Category))
             {
-                throw new ArgumentException("Category cannot be empty.", nameof(todoItem.Category));
+                throw new ArgumentException($"{nameof(todoItem.Category)} cannot be empty.");
             }
             else if (_todoListQueriesRepository.GetAllCategoriesAsync().Result.All(c => c != todoItem.Category))
             {
-                throw new ArgumentException("Category does not exist.", nameof(todoItem.Category));
-            }
-
-            var existingProgressions = _progressionQueriesRepository.GetByTodoItemIdAsync(todoItem.Id).Result;
-
-            todoItem.Progressions?.ToList().ForEach(progression =>
-            {
-                if (existingProgressions.Any(e => e.Date >= progression.Date))
-                {
-                    throw new ArgumentException("Progression date must be greater than existing dates.", nameof(progression.Date));
-                }
-
-                if (progression.Percent < Constants.Constants.Validations.TodoItem.Progression.MIN_PERCENT 
-                    || progression.Percent >= Constants.Constants.Validations.TodoItem.Progression.MAX_PERCENT)
-                {
-                    throw new ArgumentException("Progression percent must be between 1 and 99.", nameof(progression.Percent));
-                }
-            });
-
-            int totalPercent = existingProgressions?.Sum(p => p.Percent) ?? 0;
-
-            if (totalPercent + todoItem.Progressions?.Sum(p => p.Percent) > Constants.Constants.Validations.TodoItem.Progression.MAX_PERCENT)
-            {
-                throw new ArgumentException("Total progress percentage cannot exceed 100.", nameof(todoItem.Progressions));
+                throw new ArgumentException($"{nameof(todoItem.Category)} does not exist.");
             }
         }
     }

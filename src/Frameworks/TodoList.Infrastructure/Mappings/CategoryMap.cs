@@ -10,8 +10,6 @@ namespace TodoList.Infrastructure.Mappings
         {
             entity.ToTable("Category");
 
-            entity.HasKey(e => e.Name);
-
             entity.Property(e => e.Name).HasMaxLength(10);
         }
     }

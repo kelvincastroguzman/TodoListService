@@ -40,7 +40,7 @@ namespace TodoList.WebApi.Controllers.TodoList.Queries
 
             // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Equal("Procol not found", notFoundResult.Value);
+            Assert.Equal("Items to print not found", notFoundResult.Value);
         }
 
         [Fact]
@@ -63,8 +63,9 @@ namespace TodoList.WebApi.Controllers.TodoList.Queries
         public void GetPrintItems_ReturnsConflict_OnException()
         {
             // Arrange
+            string expectedErrorMessage = "fail";
             var mockService = new Mock<ITodoListQueriesService>();
-            mockService.Setup(s => s.PrintItems()).Throws(new Exception("fail"));
+            mockService.Setup(s => s.PrintItems()).Throws(new Exception(expectedErrorMessage));
             var controller = new TodoListQueriesController(mockService.Object);
 
             // Act
@@ -72,7 +73,8 @@ namespace TodoList.WebApi.Controllers.TodoList.Queries
 
             // Assert
             var conflictResult = Assert.IsType<ConflictObjectResult>(result);
-            Assert.Contains("An error occurred while processing your request", conflictResult.Value?.ToString());
+            Assert.Equal(409, conflictResult.StatusCode);
+            Assert.Contains(expectedErrorMessage, conflictResult.Value?.ToString());
         }
     }
 }

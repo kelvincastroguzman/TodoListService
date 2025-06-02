@@ -8,14 +8,14 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
     public class TodoItemCommandsRepositoryTests
     {
         [Fact]
-        public void Create_AddsTodoItemToDbSet()
+        public async void Create_AddsTodoItemToDbSet()
         {
             using var dbContext = CreateDbContext();
             var repository = new TodoItemCommandsRepository(dbContext);
             var todoItem = new TodoItem(1) { Id = 1, Title = "Title1", Description = "Description1", Category = "Category1" };
 
-            repository.Create(todoItem);
-            dbContext.SaveChanges();
+            await repository.CreateAsync(todoItem);
+            await dbContext.SaveChangesAsync();
 
             var saved = dbContext.TodoItems.Find(1);
             Assert.NotNull(saved);
@@ -28,23 +28,23 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
             using var dbContext = CreateDbContext();
             var repository = new TodoItemCommandsRepository(dbContext);
 
-            Assert.Throws<NullReferenceException>(() => repository.Create(null!));
+            Assert.ThrowsAsync<NullReferenceException>(() => repository.CreateAsync(null!));
         }
 
         [Fact]
-        public void Update_ChangesDescriptionOfExistingTodoItem()
+        public async void Update_ChangesDescriptionOfExistingTodoItem()
         {
             using var dbContext = CreateDbContext();
             dbContext.TodoItems.Add(new TodoItem(2) { Id = 2, Title = "Title2", Description = "Old", Category = "Category2" });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             var repository = new TodoItemCommandsRepository(dbContext);
             var updatedItem = new TodoItem(2) { Id = 2, Title = "Title2", Description = "New", Category = "Category2" };
 
-            repository.Update(updatedItem);
-            dbContext.SaveChanges();
+            await repository.UpdateAsync(updatedItem);
+            await dbContext.SaveChangesAsync();
 
-            var saved = dbContext.TodoItems.Find(2);
+            TodoItem? saved = dbContext.TodoItems.Find(2);
             Assert.NotNull(saved);
             Assert.Equal("New", saved.Description);
         }
@@ -56,23 +56,21 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
             var repository = new TodoItemCommandsRepository(dbContext);
             var nonExistentItem = new TodoItem(99) { Id = 99, Title = "T", Description = "D", Category = "C" };
 
-            repository.Update(nonExistentItem);
-            dbContext.SaveChanges();
-
-            var result = dbContext.TodoItems.Find(99);
+            Assert.ThrowsAsync<InvalidOperationException>(() => repository.UpdateAsync(nonExistentItem));
+            TodoItem? result = dbContext.TodoItems.Find(99);
             Assert.Null(result);
         }
 
         [Fact]
-        public void Remove_DeletesTodoItemById()
+        public async void Remove_DeletesTodoItemById()
         {
             using var dbContext = CreateDbContext();
             dbContext.TodoItems.Add(new TodoItem(3) { Id = 3, Title = "Title3", Description = "Description3", Category = "Category3" });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             var repository = new TodoItemCommandsRepository(dbContext);
-            repository.Remove(3);
-            dbContext.SaveChanges();
+            await repository.RemoveAsync(3);
+            await dbContext.SaveChangesAsync();
 
             var deleted = dbContext.TodoItems.Find(3);
             Assert.Null(deleted);
@@ -84,10 +82,7 @@ namespace TodoList.Infrastructure.Tests.Repositories.TodoList.Commands
             using var dbContext = CreateDbContext();
             var repository = new TodoItemCommandsRepository(dbContext);
 
-            // Should not throw
-            repository.Remove(99);
-            dbContext.SaveChanges();
-
+            Assert.ThrowsAsync<InvalidOperationException>(() => repository.RemoveAsync(99));
             Assert.Empty(dbContext.TodoItems);
         }
 

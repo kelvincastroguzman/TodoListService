@@ -30,7 +30,7 @@ namespace TodoList.Infrastructure.Tests.Persistence
             var options = CreateInMemoryOptions();
             using (var context = new TodoListDbContext(options))
             {
-                var category = new Category { Name = "Work" };
+                var category = new Category(1) { Name = "Work" };
                 var todoItem = new TodoItem(1) { Id = 1, Title = "Title", Description = "Description", Category = "Work" };
                 context.Categories.Add(category);
                 context.TodoItems.Add(todoItem);

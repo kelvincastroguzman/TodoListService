@@ -19,24 +19,24 @@ namespace TodoList.WebApi.Controllers.TodoList.Queries
         [Route("GetPrintItems")]
         public IActionResult GetPrintItems()
         {
-            IReadOnlyCollection<TodoItemDto> response;
-
             if (!ModelState.IsValid)
             {
                 return Conflict($"ModelState is not valid: {ModelState?.ToString()}");
             }
+
+            IReadOnlyCollection<TodoItemDto> response;
 
             try
             {
                 response = _todoListQueriesService.PrintItems();
 
                 if (response.Count == 0)
-                    return NotFound("Procol not found");
+                    return NotFound("Items to print not found");
 
             }
             catch (Exception ex)
             {
-                return Conflict($"An error occurred while processing your request: {ex.Message} - {ex.StackTrace}.");
+                return Conflict(ex.Message);
             }
 
             return Ok(response);

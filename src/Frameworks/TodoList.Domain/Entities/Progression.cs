@@ -9,8 +9,7 @@ public partial class Progression : AggregateRoot
 {
     public Progression(int id) : base(id)
     {
-        TodoItemId = id;
-        TodoItem = new TodoItem(id);
+        Id = id;
     }
 
     [Key]
@@ -18,6 +17,4 @@ public partial class Progression : AggregateRoot
     public DateTime Date { get; set; }
     public int Percent { get; set; }
     public int TodoItemId { get; set; }
-
-    public virtual TodoItem TodoItem { get; set; }
 }

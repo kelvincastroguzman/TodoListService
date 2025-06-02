@@ -12,11 +12,8 @@ namespace TodoList.Infrastructure.Mappings
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Date).HasColumnType("datetime");
-
-            entity.HasOne(d => d.TodoItem).WithMany(p => p.Progressions)
-                .HasForeignKey(d => d.TodoItemId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Progression_TodoItem");
+            entity.Property(e => e.Percent).HasColumnType("int");
+            entity.Property(e => e.TodoItemId).HasColumnType("int");
         }
     }
 }
