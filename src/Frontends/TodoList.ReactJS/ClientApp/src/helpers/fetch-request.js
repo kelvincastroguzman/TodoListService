@@ -11,7 +11,7 @@ const fetchRequest = async (url, method, entity) => {
 
   if (response.ok) {
     const jsonResponse =
-      method === "PUT" ? await response.text() : await response.json();
+      method === "PUT" || method === "POST" || method === "DELETE" ? await response.text() : await response.json();
     return jsonResponse;
   } else if (
     response.ok === false &&
@@ -21,6 +21,7 @@ const fetchRequest = async (url, method, entity) => {
     localStorage.removeItem("isLoggedIn");
     window.location.href = "/login";
   } else {
+    alert(`Warning message: ${await response.text()}`);
     return null;
   }
 };

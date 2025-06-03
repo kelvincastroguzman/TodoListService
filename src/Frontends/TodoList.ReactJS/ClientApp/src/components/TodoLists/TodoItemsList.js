@@ -19,6 +19,7 @@ const TodoItemsList = (props) => {
           key={todoItem.id}
           todoItemInput={todoItem}
           onUpdate={props.onOpenEditForm}
+          onDelete={props.onDeleteTodoItem}
         />
       ))}
     </ul>

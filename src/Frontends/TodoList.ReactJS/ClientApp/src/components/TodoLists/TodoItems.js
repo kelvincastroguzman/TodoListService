@@ -75,6 +75,12 @@ const TodoItems = () => {
     getPrintItems();
   };
 
+  const removeTodoItemHandler = async (id) => {
+    setIsEditing(false);
+    await todoListCommandsService.removeTodoItem(id);
+    getPrintItems();
+  };
+
   const openNewFormHandler = () => {
     setIsEditing(true);
     setTodoItemInput({
@@ -149,6 +155,7 @@ const TodoItems = () => {
         <TodoItemsList
           todoItems={todoItems}
           onOpenEditForm={openUpdateFormHandler}
+          onDeleteTodoItem={removeTodoItemHandler}
         />
       </Card>
     </PageContainer>

@@ -8,7 +8,7 @@ import { todoListCommandsService } from "../../services";
 
 const TodoItem = (props) => {
   const deleteHandler = async () => {
-    await todoListCommandsService.removeTodoItem(props.todoItemInput.id);
+    props.onDelete(props.todoItemInput.id);
   };
 
   const updateHandler = () => {
@@ -35,7 +35,7 @@ const TodoItem = (props) => {
         <div className={classes["todo-item__description"]}>
           <h2>{props.todoItemInput.id}) {props.todoItemInput.title} - {props.todoItemInput.description} ({props.todoItemInput.category}) Completed: {props.todoItemInput.isCompleted.toString()}.<br /></h2>
           <Button onClick={updateHandler} className={classes["todo-item__action-button"]}>Edit</Button>
-          <Button onClick={deleteHandler} className={classes["todo-item__action-button"]}>Delete</Button>
+          <Button onClick={deleteHandler} className={classes["todo-item__action-button"]}>Remove</Button>
         </div>
       </Card>
       <Card className={classes["todo-item"]}>
