@@ -5,7 +5,6 @@ using TodoList.Application.TodoList.Validators.Contracts;
 using TodoList.Domain.Entities;
 using TodoList.Domain.IRepositories.TodoList.Commands;
 using TodoList.Domain.IRepositories.TodoList.Queries;
-using TodoList.Infrastructure.Repositories.TodoList.Queries;
 
 namespace TodoList.Application.Tests.TodoList.Commands
 {
@@ -58,26 +57,25 @@ namespace TodoList.Application.Tests.TodoList.Commands
         public void AddItem_CallsCreateAsyncAndValidator()
         {
             // Arrange
-            int nextId = 10;
+            int Id = 10;
             string title = "TestTitle";
             string description = "TestDesc";
             string category = "TestCat";
-            _todoListQueriesRepoMock.Setup(r => r.GetNextIdAsync()).ReturnsAsync(nextId);
-            _todoItemCommandsRepoMock.Setup(r => r.CreateAsync(It.IsAny<TodoItem>())).ReturnsAsync(nextId);
+            _todoItemCommandsRepoMock.Setup(r => r.CreateAsync(It.IsAny<TodoItem>())).ReturnsAsync(Id);
 
             // Act
-            _service.AddItem(0, title, description, category);
+            _service.AddItem(Id, title, description, category);
 
             // Assert
             _createValidatorMock.Verify(v => v.Validate(It.Is<TodoItem>(t =>
-                t.Id == nextId &&
+                t.Id == Id &&
                 t.Title == title &&
                 t.Description == description &&
                 t.Category == category
             )), Times.Once);
 
             _todoItemCommandsRepoMock.Verify(r => r.CreateAsync(It.Is<TodoItem>(t =>
-                t.Id == nextId &&
+                t.Id == Id &&
                 t.Title == title &&
                 t.Description == description &&
                 t.Category == category
