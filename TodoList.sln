@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E011383-6545-4FF7-8A26-ADD956885068}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fontends", "Fontends", "{C8B79C18-2661-4040-A820-C93454124C40}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{C8B79C18-2661-4040-A820-C93454124C40}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{EC7DAD16-F6CE-4E93-8EA7-358634ED1EBB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScript", "DBScript", "{00D46342-5AA9-4F03-A2F2-DB4847901C58}"
 	ProjectSection(SolutionItems) = preProject
-		TodoListDB.sql = TodoListDB.sql
+		src\DBScript\TodoListDB.sql = src\DBScript\TodoListDB.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.WebApi", "src\Microservices\TodoList.WebApi\TodoList.WebApi.csproj", "{AC587E9F-7F7A-4B9B-A484-EB0B03FDA945}"
