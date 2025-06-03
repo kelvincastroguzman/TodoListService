@@ -138,7 +138,6 @@ const TodoItems = () => {
         onCreateTodoItem={createTodoItemHandler}
         onUpdateTodoItem={updateTodoItemHandler}
       />
-
       <RegisterProgressionTodoItem
         isEditingRegisterProgression={isEditingRegisterProgression}
         todoItems={todoItems}
@@ -146,7 +145,6 @@ const TodoItems = () => {
         onOpenNewForm={openRegisterProgressionFormHandler}
         onRegisterProgression={registerProgressionHandler}
       />
-
       <Card className={classes.todoItems}>
         <TodoItemsList
           todoItems={todoItems}
